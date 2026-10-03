@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 🎂</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+    background:#080014;
+    color:white;
+}
+
+/* MAIN */
+.scene{
+    width:100vw;
+    height:100vh;
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at center,#5b1688 0%,#210638 45%,#050008 100%);
+}
+
+/* STARS */
+.star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:.2}
+    to{opacity:1}
+}
+
+/* DOOR AREA */
+.door-area{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:260px;
+    height:420px;
+    perspective:1000px;
+}
+
+.door-frame{
+    width:100%;
+    height:100%;
+    background:#24100a;
+    padding:15px;
+    border:8px solid #8b572a;
+    box-shadow:0 0 50px #000;
+}
+
+.door{
+    width:100%;
+    height:100%;
+    background:
+      linear-gradient(90deg,#4b1d0c,#8b3f16,#4b1d0c);
+    border:5px solid #c17b3b;
+    position:relative;
+    transform-origin:left center;
+    transition:transform 1.8s ease;
+    box-shadow:inset 0 0 40px #000;
+    cursor:pointer;
+}
+
+.door.open{
+    transform:rotateY(-115deg);
+}
+
+.door-panel{
+    position:absolute;
+    left:20px;
+    right:20px;
+    top:25px;
+    bottom:25px;
+    border:4px solid #c17b3b;
+    box-shadow:inset 0 0 20px #000;
+}
+
+.knob{
+    position:absolute;
+    right:18px;
+    top:50%;
+    width:18px;
+    height:18px;
+    background:gold;
+    border-radius:50%;
+    box-shadow:0 0 10px gold;
+}
+
+/* OPEN BUTTON */
+.open-btn{
+    position:absolute;
+    bottom:35px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:20;
+    border:0;
+    padding:14px 28px;
+    border-radius:30px;
+    background:linear-gradient(45deg,#ff0080,#7928ff);
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    box-shadow:0 0 25px #ff0080;
+    cursor:pointer;
+}
+
+/* BIRTHDAY TEXT */
+.birthday{
+    position:absolute;
+    top:10%;
+    width:100%;
+    text-align:center;
+    opacity:0;
+    transform:scale(.3);
+    transition:1.5s;
+    pointer-events:none;
+}
+
+.birthday.show{
+    opacity:1;
+    transform:scale(1);
+}
+
+.birthday h1{
+    font-size:clamp(42px,10vw,90px);
+    font-weight:900;
+    color:#fff;
+    text-shadow:
+      0 0 10px #ff00cc,
+      0 0 30px #ff00cc,
+      0 0 60px #7b00ff;
+    animation:pulse 1.5s infinite alternate;
+}
+
+.birthday p{
+    margin-top:10px;
+    font-size:22px;
+    color:#ffd6ff;
+}
+
+@keyframes pulse{
+    from{transform:scale(1)}
+    to{transform:scale(1.08)}
+}
+
+/* BALLOONS */
+.balloon{
+    position:absolute;
+    bottom:-150px;
+    width:55px;
+    height:70px;
+    border-radius:50% 50% 45% 45%;
+    animation:fly linear forwards;
+    z-index:5;
+}
+
+.balloon:after{
+    content:"";
+    position:absolute;
+    width:2px;
+    height:80px;
+    background:#ddd;
+    top:68px;
+    left:50%;
+}
+
+.balloon:before{
+    content:"";
+    position:absolute;
+    bottom:-4px;
+    left:23px;
+    width:10px;
+    height:10px;
+    background:inherit;
+    transform:rotate(45deg);
+}
+
+@keyframes fly{
+    from{
+        bottom:-150px;
+        transform:translateX(0) rotate(0deg);
+    }
+    to{
+        bottom:110vh;
+        transform:translateX(80px) rotate(15deg);
+    }
+}
+
+/* CAKE BUTTON */
+.cake-btn{
+    display:none;
+    position:absolute;
+    left:50%;
+    bottom:70px;
+    transform:translateX(-50%);
+    padding:15px 30px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(45deg,#ff416c,#ff4b2b);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    box-shadow:0 0 25px #ff416c;
+    cursor:pointer;
+    z-index:30;
+}
+
+.cake-btn.show{
+    display:block;
+}
+
+/* CAKE */
+.cake-area{
+    position:absolute;
+    left:50%;
+    top:53%;
+    transform:translate(-50%,-50%) scale(0);
+    transition:1s;
+    z-index:25;
+    text-align:center;
+}
+
+.cake-area.show{
+    transform:translate(-50%,-50%) scale(1);
+}
+
+.cake{
+    position:relative;
+    width:230px;
+    height:170px;
+}
+
+.layer{
+    position:absolute;
+    left:0;
+    width:230px;
+    height:55px;
+    border-radius:12px;
+    background:linear-gradient(#ff8fc8,#e94d91);
+    box-shadow:0 8px 15px #0008;
+}
+
+.layer1{bottom:0}
+.layer2{bottom:45px; width:200px; left:15px}
+.layer3{bottom:90px; width:170px; left:30px}
+
+.cream{
+    position:absolute;
+    width:100%;
+    height:14px;
+    background:white;
+    border-radius:50%;
+    top:-5px;
+}
+
+.candle{
+    position:absolute;
+    width:10px;
+    height:45px;
+    background:#fff;
+    left:110px;
+    top:-45px;
+}
+
+.flame{
+    position:absolute;
+    width:18px;
+    height:25px;
+    background:#ffd700;
+    border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg);
+    top:-25px;
+    left:-4px;
+    box-shadow:0 0 20px orange;
+    animation:flame .5s infinite alternate;
+}
+
+@keyframes flame{
+    from{transform:rotate(-45deg) scale(.9)}
+    to{transform:rotate(-40deg) scale(1.1)}
+}
+
+/* CUT */
+.cake.cut{
+    animation:cutCake .8s forwards;
+}
+
+@keyframes cutCake{
+    50%{transform:rotate(3deg) scale(1.08)}
+    100%{transform:rotate(0) scale(.9);opacity:.8}
+}
+
+/* MESSAGE BOX */
+.message-box{
+    position:absolute;
+    inset:0;
+    background:#0009;
+    backdrop-filter:blur(8px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    pointer-events:none;
+    transition:1s;
+    z-index:100;
+}
+
+.message-box.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.message-card{
+    width:min(90%,450px);
+    padding:30px;
+    border-radius:25px;
+    background:linear-gradient(145deg,#311052,#150020);
+    border:1px solid #ff72d2;
+    box-shadow:0 0 50px #ff00a8;
+    text-align:center;
+}
+
+.message-card h2{
+    color:#ff9de2;
+    margin-bottom:15px;
+}
+
+#typedMessage{
+    min-height:100px;
+    line-height:1.7;
+    font-size:18px;
+    color:white;
+}
+
+/* CONFETTI */
+.confetti{
+    position:absolute;
+    width:10px;
+    height:10px;
+    top:-20px;
+    animation:confettiFall 3s linear forwards;
+    z-index:90;
+}
+
+@keyframes confettiFall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
+    }
+}
+
+/* START TEXT */
+.start-text{
+    position:absolute;
+    top:18%;
+    width:100%;
+    text-align:center;
+    font-size:20px;
+    color:#ffe7ff;
+    animation:blink 1.2s infinite alternate;
+    z-index:15;
+}
+
+@keyframes blink{
+    from{opacity:.5}
+    to{opacity:1}
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene" id="scene">
+
+    <div class="start-text" id="startText">
+        🚪 Tap the door to start the celebration
+    </div>
+
+    <!-- DOOR -->
+    <div class="door-area" id="doorArea">
+        <div class="door-frame">
+            <div class="door" id="door">
+                <div class="door-panel"></div>
+                <div class="knob"></div>
+            </div>
+        </div>
+    </div>
+
+    <button class="open-btn" id="openBtn">
+        🚪 Open Door
+    </button>
+
+    <!-- BIRTHDAY -->
+    <div class="birthday" id="birthday">
+        <h1>🎉 HAPPY BIRTHDAY 🎉</h1>
+        <p>✨ Wishing You A Magical Day ✨</p>
+    </div>
+
+    <!-- CAKE BUTTON -->
+    <button class="cake-btn" id="cakeBtn">
+        🎂 Bring The Cake
+    </button>
+
+    <!-- CAKE -->
+    <div class="cake-area" id="cakeArea">
+        <div class="cake" id="cake">
+            <div class="layer layer1">
+                <div class="cream"></div>
+            </div>
+
+            <div class="layer layer2">
+                <div class="cream"></div>
+            </div>
+
+            <div class="layer layer3">
+                <div class="cream"></div>
+            </div>
+
+            <div class="candle">
+                <div class="flame"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MESSAGE -->
+    <div class="message-box" id="messageBox">
+        <div class="message-card">
+            <h2>💌 A Special Message</h2>
+            <div id="typedMessage"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+/* STARS */
+for(let i=0;i<100;i++){
+    const star=document.createElement("div");
+    star.className="star";
+    star.style.left=Math.random()*100+"%";
+    star.style.top=Math.random()*100+"%";
+    star.style.animationDelay=Math.random()*2+"s";
+    document.getElementById("scene").appendChild(star);
+}
+
+/* ELEMENTS */
+const door=document.getElementById("door");
+const openBtn=document.getElementById("openBtn");
+const birthday=document.getElementById("birthday");
+const cakeBtn=document.getElementById("cakeBtn");
+const cakeArea=document.getElementById("cakeArea");
+const cake=document.getElementById("cake");
+const messageBox=document.getElementById("messageBox");
+const typedMessage=document.getElementById("typedMessage");
+const startText=document.getElementById("startText");
+
+/* OPEN DOOR */
+openBtn.addEventListener("click",openDoor);
+door.addEventListener("click",openDoor);
+
+function openDoor(){
+
+    door.classList.add("open");
+    openBtn.style.display="none";
+    startText.style.display="none";
+
+    setTimeout(()=>{
+        birthday.classList.add("show");
+        launchBalloons();
+
+        setTimeout(()=>{
+            cakeBtn.classList.add("show");
+        },3500);
+
+    },1000);
+}
+
+/* BALLOONS */
+function launchBalloons(){
+
+    const colors=[
+        "#ff3b81",
+        "#00e5ff",
+        "#ffd000",
+        "#7c4dff",
+        "#00ff95",
+        "#ff6b35"
+    ];
+
+    for(let i=0;i<25;i++){
+
+        setTimeout(()=>{
+
+            const balloon=document.createElement("div");
+            balloon.className="balloon";
+
+            balloon.style.left=Math.random()*100+"%";
+            balloon.style.background=
+                colors[Math.floor(Math.random()*colors.length)];
+
+            balloon.style.animationDuration=
+                (5+Math.random()*5)+"s";
+
+            balloon.style.transform=
+                `scale(${0.7+Math.random()*.6})`;
+
+            document.getElementById("scene").appendChild(balloon);
+
+            setTimeout(()=>{
+                balloon.remove();
+            },10000);
+
+        },i*250);
+    }
+}
+
+/* CAKE */
+cakeBtn.addEventListener("click",()=>{
+
+    cakeBtn.style.display="none";
+
+    cakeArea.classList.add("show");
+
+    setTimeout(()=>{
+        cake.addEventListener("click",cutCake);
+    },1000);
+});
+
+/* CUT CAKE */
+function cutCake(){
+
+    cake.classList.add("cut");
+
+    createConfetti();
+
+    setTimeout(()=>{
+        messageBox.classList.add("show");
+        typeMessage();
+    },1800);
+}
+
+/* CONFETTI */
+function createConfetti(){
+
+    for(let i=0;i<100;i++){
+
+        const confetti=document.createElement("div");
+
+        confetti.className="confetti";
+
+        confetti.style.left=Math.random()*100+"%";
+
+        confetti.style.background=
+            `hsl(${Math.random()*360},100%,60%)`;
+
+        confetti.style.animationDelay=
+            Math.random()*1.5+"s";
+
+        document.getElementById("scene").appendChild(confetti);
+
+        setTimeout(()=>{
+            confetti.remove();
+        },4000);
+    }
+}
+
+/* TYPING MESSAGE */
+function typeMessage(){
+
+    const message=
+    "🎂 जन्मदिन की ढेर सारी शुभकामनाएँ! ❤️<br><br>" +
+    "आपका हर दिन खुशियों, प्यार और सफलता से भरा रहे। " +
+    "आपकी सभी wishes पूरी हों और आपकी smile हमेशा ऐसी ही बनी रहे। ✨<br><br>" +
+    "Have a wonderful birthday! 🎉💖";
+
+    let index=0;
+
+    function type(){
+
+        if(index < message.length){
+
+            if(message[index]==="<"){
+                let end=message.indexOf(">",index);
+                typedMessage.innerHTML+=message.substring(index,end+1);
+                index=end+1;
+            }else{
+                typedMessage.innerHTML+=message[index];
+                index++;
+            }
+
+            setTimeout(type,35);
+        }
+    }
+
+    type();
+}
+
+</script>
+
+</body>
+</html>
